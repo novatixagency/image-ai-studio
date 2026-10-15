@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free AI Background Remover — Remove Image Background Online | Novatix Image AI Studio</title>
+<meta name="description" content="Remove backgrounds from any photo in seconds with free AI. 100% private — runs entirely in your browser. No signup, no limits, no watermarks. Download transparent HD PNG instantly.">
+<meta name="keywords" content="free background remover, remove bg free, AI background removal, transparent PNG maker, remove image background online, no watermark background remover">
+<link rel="canonical" href="https://bg.novatix.agency/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0f14">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Novatix Image AI Studio">
+<meta property="og:title" content="Free AI Background Remover — Remove Image Background Online">
+<meta property="og:description" content="Remove backgrounds from any photo in seconds. 100% free, private, no signup, no watermarks. HD transparent PNG download.">
+<meta property="og:url" content="https://bg.novatix.agency/">
+<meta property="og:image" content="https://bg.novatix.agency/og-cover.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free AI Background Remover — Novatix Image AI Studio">
+<meta name="twitter:description" content="Remove backgrounds from any photo in seconds. Free forever. No signup, no limits, no watermarks.">
+<meta name="twitter:image" content="https://bg.novatix.agency/og-cover.png">
+
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Novatix Image AI Studio — Free AI Background Remover",
+  "url": "https://bg.novatix.agency/",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires a modern browser with WebAssembly support",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free AI background remover that runs 100% in your browser. Upload a photo, remove the background, download a transparent PNG — no signup, no limits, no watermarks.",
+  "publisher": { "@type": "Organization", "name": "Novatix Agency", "url": "https://novatix.agency" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="https://novatix.agency" target="_blank" rel="noopener">
+    <img class="brand-logo" src="/logo.png" alt="Novatix">
+    <span class="brand-text"><em>Image AI Studio</em></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Why free?</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-sm" href="#studio">Remove background</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge"><span class="pulse-dot"></span> 100% FREE FOREVER · NO SIGNUP · NO WATERMARK</div>
+    <h1>Remove Backgrounds.<br><span class="grad">Free. Forever.</span></h1>
+    <p class="hero-sub">Upload any photo — AI erases the background in seconds, right in your browser. Your images never leave your device. Download a crisp transparent PNG, unlimited times.</p>
+
+    <div id="studio" class="studio">
+      <!-- Dropzone -->
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Upload an image to remove its background">
+        <div class="dz-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <p class="dz-title">Drop your image here, <span>or click to browse</span></p>
+        <p class="dz-hint">JPG · PNG · WebP up to 25MB &nbsp;·&nbsp; You can also paste (Ctrl+V)</p>
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+      </div>
+
+      <!-- Editor -->
+      <div id="editor" class="editor" hidden>
+        <div class="compare-wrap">
+          <div class="compare" id="compare">
+            <img id="imgBefore" class="img-before" alt="Original photo">
+            <div class="img-after-wrap" id="afterWrap">
+              <div class="checkerboard"></div>
+              <img id="imgAfter" class="img-after" alt="Background removed">
+            </div>
+            <input type="range" id="compareSlider" class="compare-slider" min="0" max="100" value="50" aria-label="Compare before and after">
+            <div class="compare-handle" id="compareHandle"><span>⟨⟩</span></div>
+            <span class="tag tag-before">Before</span>
+            <span class="tag tag-after">After</span>
+          </div>
+          <div id="progressOverlay" class="progress-overlay" hidden>
+            <div class="spinner"></div>
+            <p id="progressLabel">Preparing AI…</p>
+            <div class="progress-bar"><div id="progressFill"></div></div>
+            <p id="progressNote" class="progress-note"></p>
+          </div>
+        </div>
+        <div id="errorBox" class="error-box" hidden></div>
+        <div class="editor-actions">
+          <button id="downloadBtn" class="btn btn-primary" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download transparent PNG
+          </button>
+          <button id="newImageBtn" class="btn btn-ghost">Try another image</button>
+        </div>
+        <p class="privacy-note">🔒 100% private — everything runs in your browser. Nothing is uploaded or stored anywhere.</p>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><strong>Rs 0</strong><span>cost, forever</span></div>
+      <div class="stat"><strong>~3s</strong><span>average removal</span></div>
+      <div class="stat"><strong>HD</strong><span>full-resolution output</span></div>
+      <div class="stat"><strong>0</strong><span>signups required</span></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section">
+    <h2>How it works</h2>
+    <p class="section-sub">Three steps. Zero friction.</p>
+    <div class="cards-3">
+      <div class="card"><div class="card-num">1</div><h3>Upload</h3><p>Drop any JPG, PNG or WebP. The AI model loads once (~40MB, cached) and runs on your device.</p></div>
+      <div class="card"><div class="card-num">2</div><h3>AI removes the background</h3><p>A neural network segments your subject with pixel-level precision — hair, edges and all.</p></div>
+      <div class="card"><div class="card-num">3</div><h3>Download PNG</h3><p>Grab a transparent, full-resolution PNG. No watermark, no account, no limits. Do it again.</p></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <h2>Why it's free <span class="grad">(and better)</span></h2>
+    <p class="section-sub">Paid tools like remove.bg charge after a few images. Here's our deal:</p>
+    <div class="cards-4">
+      <div class="card feat">
+        <div class="feat-icon">🔒</div><h3>100% private</h3>
+        <p>The AI runs entirely in your browser. Your photos never touch our servers — because they never leave your device.</p>
+      </div>
+      <div class="card feat">
+        <div class="feat-icon">💎</div><h3>HD output</h3>
+        <p>Full-resolution transparent PNG. No downscaling, no quality tricks to push you to a paid plan.</p>
+      </div>
+      <div class="card feat">
+        <div class="feat-icon">🚫</div><h3>No watermark</h3>
+        <p>What you see is yours. Clean output, ready for products, thumbnails and designs.</p>
+      </div>
+      <div class="card feat">
+        <div class="feat-icon">∞</div><h3>Unlimited</h3>
+        <p>No credits, no daily caps, no "free trial". Remove backgrounds all day, every day, free forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="section">
+    <h2>Made for</h2>
+    <div class="chips">
+      <span class="chip">🛒 E-commerce product photos</span>
+      <span class="chip">🎬 YouTube thumbnails</span>
+      <span class="chip">🎨 Designers &amp; marketers</span>
+      <span class="chip">📱 Social media posts</span>
+      <span class="chip">💼 Professional headshots</span>
+      <span class="chip">🏠 Real-estate listings</span>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <details class="faq" open>
+        <summary>Is it really free? What's the catch?</summary>
+        <p>No catch. The AI runs on your own device (your phone or computer does the work), so it costs us nothing to run — and we pass that on. No signup, no credits, no watermarks.</p>
+      </details>
+      <details class="faq">
+        <summary>Are my photos uploaded anywhere?</summary>
+        <p>Never. The entire process happens locally in your browser using WebAssembly. Your images never leave your device, which also makes it faster than cloud tools.</p>
+      </details>
+      <details class="faq">
+        <summary>What image formats are supported?</summary>
+        <p>JPG, PNG and WebP up to 25MB. Output is always a transparent PNG at your image's original resolution.</p>
+      </details>
+      <details class="faq">
+        <summary>Why does the first run take longer?</summary>
+        <p>Your browser downloads the AI model once (~40MB). After that it's cached, and removals take just a few seconds.</p>
+      </details>
+      <details class="faq">
+        <summary>Can I use the results commercially?</summary>
+        <p>Yes — the output is yours. Use it in products, ads, thumbnails and client work with no attribution required.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta">
+    <h2>Ready to cut out <span class="grad">anything?</span></h2>
+    <a class="btn btn-primary btn-lg" href="#studio">Remove a background now →</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <p><strong>Novatix Image AI Studio</strong> — free tools, forever.</p>
+  <p class="footer-links">
+    <a href="https://novatix.agency">Novatix Agency</a> ·
+    <a href="https://novatix.agency/tools">304 Free Tools</a> ·
+    <a href="https://pdf.novatix.agency">PDF Tools</a> ·
+    <a href="https://save.novatix.agency">Subscription Killer</a>
+  </p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

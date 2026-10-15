@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bg.novatix.agency/sitemap.xml
